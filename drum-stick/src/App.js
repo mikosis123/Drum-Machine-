@@ -1,7 +1,14 @@
 import logo from './logo.svg';
+import {useState,useEffect} from "react"
 import './App.css';
 
 function App() {
+  useEffect(()=>{
+    document.addEventListener("keydown",(eve)=>{
+      console.log(eve.key)
+      playDrum(eve.key.toLocaleUpperCase())
+    })
+  })
 
   const drumArr = [
     {
