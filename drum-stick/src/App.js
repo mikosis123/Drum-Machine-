@@ -3,6 +3,9 @@ import {useState,useEffect} from "react"
 import './App.css';
 
 function App() {
+  const [Activekey,setActivekey]=useState("")
+  const [isOn, setIsOn] = useState(false);
+
   useEffect(()=>{
     document.addEventListener("keydown",(eve)=>{
       console.log(eve.key)
@@ -59,13 +62,20 @@ function App() {
   ];
   function playDrum(selector) {
     const audio = document.getElementById(selector);
-    audio.play();
+    {isOn?audio.play():audio.pause()};
+    setActivekey(selector)
   }
+  const handleClick = () => {
+    setIsOn(!isOn);
+  };
 
   return (
     <div className="App">
       <div id="drum-machine">
         <div id="display">
+          <div className='activekey'>{Activekey}</div> 
+          <button className={`toggle-button ${isOn ? 'on' : 'off'}`} onClick={handleClick}>
+           {isOn ? 'Sound OFF' : 'Sound ON'}</button>
           <div className="drum-pads">
             {drumArr.map((arr) => (
               <div key={arr.src} onClick={() => playDrum(arr.text)} className="drum-pad" id={arr.src}>
